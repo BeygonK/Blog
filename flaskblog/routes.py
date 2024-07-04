@@ -1,21 +1,30 @@
+"""This module handles routing
+to specific pages
+"""
+
 from flask import render_template, url_for, flash, redirect, request
 from flaskblog import app, bcrypt, db
 from flaskblog.forms import RegistrationForm, LoginForm
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 
+# dummy data
 posts = [{"title": "My Updated Post", "content": "My first updated post!\r\n\r\nThis is exciting!", "user_id": 1}, {"title": "A Second Post", "content": "This is a post from a different user...", "user_id": 2}]
 
 
 @app.route("/")
 def home():
+    """This is for home page"""
+
     return render_template("articles.html",
                            posts=posts)
 
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
-    if current_user.is_authenticated:
+    """This is for registration route"""
+    
+    if current_user.is_authenticated: # check authentication
         return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -27,13 +36,12 @@ def register():
             flash('Your account has been created! You are now able to log in', 'success')
             return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
-    return render_template('register.html',
-                           title='Register',
-                           form=form) 
 
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    """Handles login functionality"""
+    
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     form = LoginForm()
@@ -51,6 +59,8 @@ def login():
     
 @app.route("/logout")
 def logout():
+    """Handles logout"""
+    
     logout_user()
     return redirect(url_for('home'))
 
