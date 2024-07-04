@@ -1,8 +1,7 @@
-from flask import Flask, render_template, url_for, flash, redirect
-from forms import RegistrationForm, LoginForm
-app = Flask(__name__)
-
-app.config['SECRET_KEY'] = 'b936b20e204230db5378a51973d74fa4'
+from flask import render_template, url_for, flash, redirect
+from flaskblog import app
+from flaskblog.forms import RegistrationForm, LoginForm
+from flaskblog.models import User, Post
 
 posts = [{"title": "My Updated Post", "content": "My first updated post!\r\n\r\nThis is exciting!", "user_id": 1}, {"title": "A Second Post", "content": "This is a post from a different user...", "user_id": 2}]
 
@@ -32,7 +31,4 @@ def login():
         return redirect(url_for('home'))
     return render_template('login.html',
                            title='Login',
-                           form=form)    
-
-if __name__ == '__main__':
-    app.run(debug=True)
+                           form=form)  
