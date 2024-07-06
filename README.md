@@ -25,5 +25,5 @@ Follow these instructions to set up and run the project on your local machine.
 1. **Clone the repository:**
 
    ```sh
-   git clone https://github.com/your-username/blog-post-flask.git
-   cd blog-post-flask
+   git clone https://github.com/BeygonK/blog.git
+   cd blog
